@@ -79,7 +79,7 @@ function i18nFor(locale: Locale): I18n {
 
 const I18nContext = createContext<I18n>(i18nFor(DEFAULT_LOCALE));
 
-// The server snapshot (static export prerender) is always English so hydration
+// The server snapshot (static export prerender) uses the fork default so hydration
 // matches; the stored preference is applied right after hydration.
 const serverSnapshot = () => DEFAULT_LOCALE;
 

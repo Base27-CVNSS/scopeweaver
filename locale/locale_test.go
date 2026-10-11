@@ -18,6 +18,8 @@ func TestNormalize(t *testing.T) {
 		"en_GB": {En, true},
 		"ko":    {Ko, true},
 		"ko-KR": {Ko, true},
+		"vi":    {Vi, true},
+		"vi-VN": {Vi, true},
 		"KO":    {Ko, true},
 		"fr":    {Default, false},
 		"":      {Default, false},
@@ -106,6 +108,9 @@ func TestContextRoundTrip(t *testing.T) {
 
 func TestCatalogFallback(t *testing.T) {
 	Register("test.hello", "Hello %s", "")
+	if got := T(Vi, "test.hello", "world"); got != "Hello world" {
+		t.Errorf("Vi should fall back to En: %q", got)
+	}
 	if got := T(Ko, "test.hello", "world"); got != "Hello world" {
 		t.Errorf("Ko should fall back to En: %q", got)
 	}

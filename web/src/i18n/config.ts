@@ -2,10 +2,10 @@
 // and the node tests. Keep this module free of DOM access and path aliases so
 // `node --test` can import it directly.
 
-export const LOCALES = ["en", "ko"] as const;
+export const LOCALES = ["vi", "en", "ko"] as const;
 export type Locale = (typeof LOCALES)[number];
 
-export const DEFAULT_LOCALE: Locale = "en";
+export const DEFAULT_LOCALE: Locale = "vi";
 
 // Persistence contract shared with the backend (see status notes):
 // localStorage for the UI, a cookie so the server can negotiate too.
@@ -18,11 +18,13 @@ export const LOCALE_QUERY_PARAM = "lang";
 
 // Native names are shown in the language selector regardless of UI locale.
 export const LOCALE_NATIVE_NAMES: Record<Locale, string> = {
+  vi: "Tiếng Việt",
   en: "English",
   ko: "한국어",
 };
 
 const INTL_LOCALES: Record<Locale, string> = {
+  vi: "vi-VN",
   en: "en-US",
   ko: "ko-KR",
 };

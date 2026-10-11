@@ -4,7 +4,9 @@
 
 An LLM multi-agent autonomous penetration-testing system (Go backend + Next.js frontend)
 
-English · [한국어](README.ko.md)
+**[Tiếng Việt](README.vi.md)** · English · [한국어](README.ko.md)
+
+[Trang giao diện đen–đỏ bằng tiếng Việt](https://base27-cvnss.github.io/scopeweaver/vi/)
 
 </div>
 

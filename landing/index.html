@@ -2,15 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- The Base27-CVNSS fork presents Vietnamese first; English remains available with ?lang=en. -->
+    <script>if(!new URLSearchParams(location.search).has("lang") && !location.hash){location.replace("vi/" + location.search + location.hash);}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ScopeWeaver — self-hosted console for multi-agent security research</title>
     <meta
       name="description"
       content="ScopeWeaver is a self-hosted console that coordinates goal planning, autonomous agents, asset scope, coverage and recorded findings for locally isolated security research. Go backend, embedded Next.js, PostgreSQL. Derived from ARTEX, AGPL-3.0."
     />
-    <link rel="canonical" href="https://cskwork.github.io/scopeweaver/" />
-    <link rel="alternate" hreflang="en" href="https://cskwork.github.io/scopeweaver/" />
-    <link rel="alternate" hreflang="ko" href="https://cskwork.github.io/scopeweaver/ko/" />
+    <link rel="canonical" href="https://base27-cvnss.github.io/scopeweaver/?lang=en" />
+    <link rel="alternate" hreflang="en" href="https://base27-cvnss.github.io/scopeweaver/?lang=en" />
+    <link rel="alternate" hreflang="ko" href="https://base27-cvnss.github.io/scopeweaver/ko/" />
+    <link rel="alternate" hreflang="vi" href="https://base27-cvnss.github.io/scopeweaver/vi/" />
     <link rel="alternate" hreflang="x-default" href="https://cskwork.github.io/scopeweaver/" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
@@ -25,7 +28,7 @@
       content="Coordinate goal planning, autonomous agents, asset scope, coverage and recorded findings in one self-hosted console for locally isolated research."
     />
     <meta property="og:url" content="https://cskwork.github.io/scopeweaver/" />
-    <meta property="og:image" content="https://cskwork.github.io/scopeweaver/assets/img/og-en.jpg" />
+    <meta property="og:image" content="https://base27-cvnss.github.io/scopeweaver/assets/img/og-en.jpg" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="ko_KR" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -72,6 +75,7 @@
         <div class="header-tools has-nav">
           <div class="lang-switch" role="group" aria-label="Language">
             <span aria-current="true">EN</span>
+            <a href="vi/" lang="vi" hreflang="vi">Tiếng Việt</a>
             <a href="ko/" lang="ko" hreflang="ko">한국어</a>
           </div>
           <a

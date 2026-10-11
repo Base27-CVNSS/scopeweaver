@@ -9,6 +9,7 @@ import * as interfaceMessages from "./messages/interface.ts";
 import * as english from "./messages/english.ts";
 import * as settings from "./messages/settings.ts";
 import * as common from "./messages/common.ts";
+import { byEnglish, byKey } from "./vietnamese.ts";
 
 const namespaces = {
   providers,
@@ -36,6 +37,12 @@ function flatten(locale: "en" | "ko"): Catalog {
   return out as Catalog;
 }
 
-export const catalogs = { en: flatten("en"), ko: flatten("ko") } as const;
+// Vietnamese uses the complete English key set, then explicit validated
+// translations; technical/legal text without a reviewed translation remains English.
+const englishCatalog = flatten("en");
+const vietnameseCatalog = Object.fromEntries(
+  Object.entries(englishCatalog).map(([key, value]) => [key, byKey[key] ?? byEnglish[value] ?? value]),
+) as Catalog;
+export const catalogs = { en: englishCatalog, ko: flatten("ko"), vi: vietnameseCatalog } as const;
 
 export const namespaceNames = Object.keys(namespaces);

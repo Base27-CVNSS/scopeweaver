@@ -282,3 +282,62 @@ html {
     -webkit-print-color-adjust: exact;
   }
 }
+
+
+/* Base27-CVNSS Red Team visual system (UI only).
+   Maintain readable contrast; never recolor print reports or evidence data. */
+html.dark[data-theme-preset="default"] {
+  color-scheme: dark;
+  --background: #08090d;
+  --foreground: #f1f2f5;
+  --card: #12141b;
+  --card-foreground: #f1f2f5;
+  --popover: #171921;
+  --popover-foreground: #f3f4f7;
+  --primary: #ef4444;
+  --primary-foreground: #ffffff;
+  --secondary: #24252e;
+  --secondary-foreground: #e7e9f0;
+  --muted: #202129;
+  --muted-foreground: #b0b4c1;
+  --accent: #37171e;
+  --accent-foreground: #ffe9e9;
+  --destructive: #fb575d;
+  --border: #35343f;
+  --input: #363641;
+  --ring: #ff6b6b;
+  --chart-1: #ff4d4f;
+  --chart-2: #f97360;
+  --chart-3: #f6a550;
+  --chart-4: #a782a8;
+  --chart-5: #6d768b;
+  --sidebar: #0d0f15;
+  --sidebar-foreground: #e8eaf0;
+  --sidebar-primary: #ef4444;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #351820;
+  --sidebar-accent-foreground: #ffe4e5;
+  --sidebar-border: #33313b;
+  --sidebar-ring: #ff6b6b;
+}
+html.dark[data-theme-preset="default"] body {
+  background-image: radial-gradient(circle at 85% 0%, rgb(177 29 44 / 5%), transparent 38%);
+  background-attachment: fixed;
+}
+html.dark[data-theme-preset="default"] ::selection {
+  background: #96313b;
+  color: #ffffff;
+}
+html.dark[data-theme-preset="default"] :is(button,a,input,select,textarea):focus-visible {
+  outline-color: #ff6b6b;
+  outline-offset: 2px;
+}
+html.dark[data-theme-preset="default"] :is([data-slot="card"],[data-slot="dialog-content"]) {
+  border-color: #34313b;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.dark[data-theme-preset="default"] *, html.dark[data-theme-preset="default"] *::before,
+  html.dark[data-theme-preset="default"] *::after {
+    scroll-behavior: auto !important;
+  }
+}

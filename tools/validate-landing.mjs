@@ -2,7 +2,7 @@
 /* Integrity check for the ScopeWeaver landing page.
    Lives outside landing/ so it is never published. Verifies that every
    referenced asset exists, that relative paths resolve under /scopeweaver/
-   and /scopeweaver/ko/, that EN/KO structural parity holds, and that no
+   /scopeweaver/ko/ and /scopeweaver/vi/, that EN/KO structural parity holds, and that no
    planning/seed/contract metadata leaked into the shipped folder. */
 
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
@@ -27,6 +27,7 @@ const ok = (m) => {
 const pages = [
   { file: join(landing, "index.html"), base: landing, lang: "en" },
   { file: join(landing, "ko", "index.html"), base: join(landing, "ko"), lang: "ko" },
+  { file: join(landing, "vi", "index.html"), base: join(landing, "vi"), lang: "vi" },
 ];
 
 const attrRe = /(?:src|href)="([^"#?][^"]*)"|srcset="([^"]+)"/g;
@@ -97,12 +98,21 @@ if (copyEn !== copyKo) fail(`copy-btn count differs EN(${copyEn}) KO(${copyKo})`
 else ok(`EN/KO copy-btn count matches (${copyEn})`);
 
 // language cross-links
+if (!/href="vi\\/"/.test(en)) fail("EN page missing link to vi/");
+else ok("EN links to vi/");
 if (!/href="ko\/"/.test(en)) fail("EN page missing link to ko/");
 else ok("EN links to ko/");
 if (!/href="\.\.\/"/.test(ko)) fail("KO page missing link to ../ (EN)");
 else ok("KO links to ../ (EN)");
 
-/* --- 3. Every screenshot figure carries a demo caption --- */
+/* --- 3. Check VI tab/panel accessibility independently. --- */
+const vi = readFileSync(join(landing, "vi", "index.html"), "utf8");
+const viTabs = countRole(vi, "tab");
+const viPanels = countRole(vi, "tabpanel");
+if (viTabs === 0 || viTabs !== viPanels) fail("VI: tab / tabpanel count mismatch");
+else ok(`VI: ${viTabs} keyboard-accessible tab panels`);
+
+/* --- 4. Every screenshot figure carries a demo caption --- */
 for (const [name, s] of [["en", en], ["ko", ko]]) {
   const figs = (s.match(/<figure/g) || []).length;
   const caps = (s.match(/figcaption class="demo"/g) || []).length;
@@ -111,7 +121,7 @@ for (const [name, s] of [["en", en], ["ko", ko]]) {
   else ok(`${name}: ${caps} demo captions for ${figs} figures`);
 }
 
-/* --- 4. No planning/seed/contract metadata shipped in landing/ --- */
+/* --- 5. No planning/seed/contract metadata shipped in landing/ --- */
 const banned = [/THESIS:/, /OWN-WORLD:/, /surface seed/i, /Direction contract/i, /impeccable:product-schema/];
 const walk = (dir) => {
   for (const entry of readdirSync(dir)) {
@@ -128,7 +138,7 @@ const walk = (dir) => {
 walk(landing);
 ok("no planning/seed/contract metadata found in landing/");
 
-/* --- 5. .nojekyll present --- */
+/* --- 6. .nojekyll present --- */
 if (!existsSync(join(landing, ".nojekyll"))) fail(".nojekyll missing");
 else ok(".nojekyll present");
 

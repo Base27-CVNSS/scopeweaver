@@ -107,8 +107,10 @@ func TestContextRoundTrip(t *testing.T) {
 }
 
 func TestCatalogFallback(t *testing.T) {
-	if got := T(Vi, "test.hello", "world"); got != "test.hello" { t.Errorf("unknown Vietnamese key: %q", got) }
 	Register("test.hello", "Hello %s", "")
+	if got := T(Vi, "test.hello", "world"); got != "Hello world" {
+		t.Errorf("Vi should fall back to En: %q", got)
+	}
 	if got := T(Ko, "test.hello", "world"); got != "Hello world" {
 		t.Errorf("Ko should fall back to En: %q", got)
 	}

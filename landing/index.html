@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- The Base27-CVNSS fork presents Vietnamese first; English remains available with ?lang=en. -->
+    <script>if(!new URLSearchParams(location.search).has("lang") && !location.hash){location.replace("vi/" + location.search + location.hash);}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ScopeWeaver — self-hosted console for multi-agent security research</title>
     <meta
@@ -10,7 +12,8 @@
     />
     <link rel="canonical" href="https://cskwork.github.io/scopeweaver/" />
     <link rel="alternate" hreflang="en" href="https://cskwork.github.io/scopeweaver/" />
-    <link rel="alternate" hreflang="ko" href="https://cskwork.github.io/scopeweaver/ko/" />
+    <link rel="alternate" hreflang="ko" href="https://base27-cvnss.github.io/scopeweaver/ko/" />
+    <link rel="alternate" hreflang="vi" href="https://base27-cvnss.github.io/scopeweaver/vi/" />
     <link rel="alternate" hreflang="x-default" href="https://cskwork.github.io/scopeweaver/" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
@@ -72,6 +75,7 @@
         <div class="header-tools has-nav">
           <div class="lang-switch" role="group" aria-label="Language">
             <span aria-current="true">EN</span>
+            <a href="vi/" lang="vi" hreflang="vi">Tiếng Việt</a>
             <a href="ko/" lang="ko" hreflang="ko">한국어</a>
           </div>
           <a

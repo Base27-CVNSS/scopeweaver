@@ -23,7 +23,7 @@ let initialized = false;
 const listeners = new Set<Listener>();
 
 // readStoredLocale: localStorage first, then the cookie. No browser-language
-// sniffing — English stays the default until the user picks another locale.
+// sniffing — Vietnamese is the default on this fork until another selection.
 export function readStoredLocale(): Locale | null {
   if (typeof window === "undefined") return null;
   try {
@@ -45,7 +45,7 @@ export function initializeLocale() {
   if (changed) for (const listener of listeners) listener(next);
 }
 
-// Rendering starts in English, matching the static-export hydration snapshot.
+// Rendering starts in Vietnamese, matching the static-export hydration snapshot.
 // The provider initializes persisted preferences after hydration.
 export function getLocale(): Locale { return current; }
 
@@ -80,8 +80,8 @@ export function hasMessage(key: string): key is MessageKey {
   return Object.hasOwn(catalogs.en, key);
 }
 
-// translateIn never falls back to another language: both catalogs are
-// complete by construction (see catalog.ts); an unknown key renders as itself.
+// All three catalogs have the English key set. Reviewed Vietnamese translations
+// override English; untranslated entries deliberately remain English.
 export function translateIn(locale: Locale, key: MessageKey, params?: MessageParams): string {
   const message = catalogs[locale][key];
   return message === undefined ? key : interpolate(message, params);

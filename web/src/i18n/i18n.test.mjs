@@ -19,18 +19,19 @@ function browser(stored = null, cookie = "") {
 }
 function reset() { delete globalThis.window; delete globalThis.document; __resetLocaleForTests(); }
 
-test("English is the default; unsupported and malformed preferences safely fall back", () => {
-  reset(); assert.equal(getLocale(), "en");
+test("Vietnamese is the default; unsupported and malformed preferences safely fall back", () => {
+  reset(); assert.equal(getLocale(), "vi");
   assert.equal(normalizeLocale("ko-KR"), "ko");
+  assert.equal(normalizeLocale("vi-VN"), "vi");
   assert.equal(normalizeLocale("zh-CN"), null);
   assert.equal(readCookieLocale("scopeweaver_locale=%E0%A4%A"), null);
   browser("unsupported", "scopeweaver_locale=ko"); initializeLocale(); assert.equal(getLocale(), "ko");
-  reset(); browser("unsupported", "scopeweaver_locale=%bad"); initializeLocale(); assert.equal(getLocale(), "en"); reset();
+  reset(); browser("unsupported", "scopeweaver_locale=%bad"); initializeLocale(); assert.equal(getLocale(), "vi"); reset();
 });
 
-test("persisted Korean starts with the English hydration snapshot and initializes afterward", () => {
+test("persisted Korean starts with the Vietnamese hydration snapshot and initializes afterward", () => {
   reset(); browser("ko");
-  assert.equal(getLocale(), "en"); assert.equal(translate("common.save"), "Save");
+  assert.equal(getLocale(), "vi"); assert.equal(translate("common.save"), "Lưu");
   assert.equal(localeHeaders()["Accept-Language"], "ko", "first API call honors persisted preference before effects");
   let calls=0; const unsubscribe=subscribeLocale(()=>calls++); initializeLocale();
   assert.equal(getLocale(), "ko"); assert.equal(translate("common.save"), "저장"); assert.equal(calls,1);
@@ -41,10 +42,13 @@ test("persisted Korean starts with the English hydration snapshot and initialize
 
 test("both catalogs are complete and preserve interpolation fields", () => {
   assert.deepEqual(Object.keys(catalogs.en).sort(), Object.keys(catalogs.ko).sort());
+  assert.deepEqual(Object.keys(catalogs.en).sort(), Object.keys(catalogs.vi).sort());
   assert.ok(Object.keys(catalogs.en).length >= 3000);
   for(const key of Object.keys(catalogs.en)) {
-    assert.ok(catalogs.en[key].length, key); assert.ok(catalogs.ko[key].length,key);
+    assert.ok(catalogs.en[key].length, key); assert.ok(catalogs.ko[key].length,key); assert.ok(catalogs.vi[key].length,key);
     assert.deepEqual(placeholders(catalogs.en[key]), placeholders(catalogs.ko[key]),key);
+    assert.deepEqual(placeholders(catalogs.en[key]), placeholders(catalogs.vi[key]),key);
+    assert.deepEqual(tags(catalogs.en[key]), tags(catalogs.vi[key]),key);
     assert.doesNotMatch(catalogs.en[key], /Untranslated|미번역|\p{Script=Han}/u,key);
     assert.doesNotMatch(catalogs.ko[key], /Untranslated|미번역|\p{Script=Han}/u,key);
   }

@@ -98,6 +98,8 @@ if (copyEn !== copyKo) fail(`copy-btn count differs EN(${copyEn}) KO(${copyKo})`
 else ok(`EN/KO copy-btn count matches (${copyEn})`);
 
 // language cross-links
+if (!/href="vi\\/"/.test(en)) fail("EN page missing link to vi/");
+else ok("EN links to vi/");
 if (!/href="ko\/"/.test(en)) fail("EN page missing link to ko/");
 else ok("EN links to ko/");
 if (!/href="\.\.\/"/.test(ko)) fail("KO page missing link to ../ (EN)");
